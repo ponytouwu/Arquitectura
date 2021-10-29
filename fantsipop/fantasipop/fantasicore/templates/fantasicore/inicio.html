@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'fantasicore/css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'fantasicore/css/cuentascs.css' %}">
+    <link rel="stylesheet" href="{% static 'fantasicore/css/Repitcs.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script type="text/javascript"
         src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
+    <link rel="icon" type="image/jpg" href="{% static 'ventas/img/icono.PNG' %}">
     <title>Patagón-Inicio sesion</title>
+    <script>
+        $(document).ready(function () {
+            $("#formulario_inicio").validate({
+                rules: {
+                    correo: {
+                        required: true,
+                        minlength: 1,
+                        email: true
+                    },
+                    Contraseña: {
+                        required: true,
+                        minlength: 1
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+        body {
+
+            background-repeat: no-repeat;
+            background-color: rgba(209, 209, 171, 0.473);
+        }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
-            
-            
+        <nav class="navbar navbar-expand-xl bg-danger fixed-top bordernav">
+            <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;" alt=""></a>
         </nav>
     </header>
     <article>
@@ -28,56 +54,39 @@
                 <div class="container color">
                     <div class="row">
                         <div class="card-body col-md pp">
-
-                            <form  method="POST" name="formulario_inicio"
-                                id="formulario_inicio" class="bord">
+                            <form action="{% url 'home' %}" method="GET" name="formulario_inicio" id="formulario_inicio"
+                                class="bord">
                                 {% csrf_token %}
                                 <div id="in" class="text-center">Inicio sesion</div>
-                                <div class="form-group a">
-                                    <label for="correo">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="Ingrese Username">
+                                <br>
+                                <label for="Rut">Rut</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control col-md-12" name="Rut" id="Rut"
+                                        placeholder="Sin puntos ni guion">
+                                    <input type="text" class="form-control col-md-1" name="dv" id="dv" placeholder="DV">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Contraseña">Contraseña</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Contraseña">
-                                    <small id="emailHelp" class="form-text text-muted">Recuerda no compartir tu
-                                        contraseña</small>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Recordar cuenta</label>
+                                    <label for="Contraseña">Numero de Ticket</label>
+                                    <input type="number" class="form-control" id="Contraseña" name="ticket"
+                                        placeholder="Numero de Ticket">
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary bbbt">INICIAR</button>
                                 </div>
-                                <div class="text-center" style="margin-top: 20px;">
-                                    <a class="fab fa-google size_social text-info" aria-hidden="true"></a>
-                                </div>
                                 <br>
                                 <div class="text-center">
-                                    <span> No tienes cuenta? Registrate <a>aqui</a></span>
+                                    <span> No tienes cuenta? Registrate <a href="{% url 'registro' %}">aqui</a></span>
                                 </div>
-                                <div class="text-center">
-                                    <span> Olvidaste tu contraseña ? Haz Click <a>aqui</a></span>
-                                </div>
-
                             </form>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </section>
     </article>
     <footer class="site-info">
-        <div class="mapa">
-            <div id="map"></div>
-        </div>
         <div class="inside-site-info">
-            <span>Patagon - Todos los derechos Reservados [2021]</span>
+            <span>Fantasi-Pop - Todos los derechos Reservados [2021]</span>
         </div>
     </footer>
 </body>

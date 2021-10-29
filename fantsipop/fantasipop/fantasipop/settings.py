@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'fantasicore'
-    
-    
 ]
 
 MIDDLEWARE = [
@@ -75,11 +73,12 @@ WSGI_APPLICATION = 'fantasipop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521/orcl',
-        'USER' : 'fantasipop',
+        'NAME': '127.0.0.1:1521/xe',
+        'USER' : 'test1',
         'PASSWORD' : '123',
         'TEST' : {
             'USER' : 'default_test',

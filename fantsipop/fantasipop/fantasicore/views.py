@@ -7,3 +7,6 @@ def home (request):
 
 def inicio (request):
     return render(request, 'fantasicore/inicio.html')
+    
+def registro (request):
+    return render(request, 'fantasicore/registro.html')

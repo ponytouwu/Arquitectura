@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'fantasicore/css/cuentascs.css' %}">
+    <link rel="stylesheet" href="{% static 'fantasicore/css/contactocss.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
+    <link rel="icon" type="image/jpg" href="{% static 'ventas/img/icono.PNG' %}">
+    <title>Patagón-Registro</title>
+    
+    <script>
+           $(document).ready(function () {
+            $("#formulario_registro").validate({
+                rules: {
+                    Rut: {
+                        required: true,
+                        number:true,
+                        min: 1,
+                        minlength:6
+
+                    },
+                    Nombre: {
+                        required: true,
+                        minlength: 2
+                        
+                    },
+                    Apellido_P: {
+                        required: true,
+                        minlength: 2
+                        
+                    },
+                    Numero: {
+                        required: true,
+                        minlength: 8
+                        
+                    },
+                    correo: {
+                        required: true,
+                        minlength: 1,
+                        email: true
+                      
+                    },
+                    dv:{
+                        required:true,
+                        minlength:1,
+                        maxlength:1,
+                        number:false
+                      
+                    },
+                    exampleCheck1:{
+                        required:true
+                    }           
+                },
+                messages:{
+                   
+                    exampleCheck1:{
+                        required:"Debes aceptar los terminos y condiciones para ingresar"
+                    }                          
+                }             
+            });
+        });
+        </script>
+        <style>
+        body {
+
+            background-repeat: no-repeat;
+            background-color: rgba(209, 209, 171, 0.473);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl bg-danger fixed-top bordernav">
+            <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 60px;" alt=""></a>         
+        </nav>
+    </header>
+    <article>
+        <section>
+            <div class="ll">
+                <div class="container color">
+                    <div class="row">
+                        <div class="card-body col-md pp">
+                            <!-- Manipular Messages-->
+                            {% if messages %}
+
+                            <div class="alert alert-success">
+                                {% for x in messages %}
+                                <strong>{{ x }} Exitosamente</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
+                            <form action="{% url 'registro' %}" method="POST" name="formulario_registro"
+                                id="formulario_registro" class="bord">
+                                {% csrf_token %}
+                                
+                                <div id="in" class="text-center">Registrarse</div>
+                                <div class="form-group a">
+                                    <label for="Nombre">Nombres</label>
+                                    <input type="text" class="form-control" id="Nombre" name="Nombre"
+                                        placeholder="Ponga sus nombres">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Apellido_P">Apellidos</label>
+                                    <input type="text" class="form-control" id="Apellido_P" name="Apellido_P"
+                                        placeholder="Ponga sus Apellidos">
+                                </div>
+                                <label for="Rut">Rut</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control col-md-12" name="Rut" id="Rut"
+                                        placeholder="Sin puntos ni guion">
+                                    <input type="text" class="form-control col-md-1" name="dv" id="dv" placeholder="DV">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Correo Electronico</label>
+                                    <input type="email" class="form-control" id="correo" aria-describedby="emailHelp"
+                                        placeholder="Ponga su email" name="correo">
+                                    <small id="emailHelp" class="form-text text-muted">ejemplo@correo.com</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Numero">Numero</label>
+                                    <input type="tel" class="form-control" id="Numero" placeholder="Ponga su Numero"
+                                        name="Numero">
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Aceptar Terminos y
+                                        Condiciones</label>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary bbbt">Registrar</button>
+                                </div>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+    <footer class="site-info">
+        <div class="inside-site-info">
+            <span>Fantasi-Pop - Todos los derechos Reservados [2021]</span>
+        </div>
+    </footer>
+</body>
+
+</html>
