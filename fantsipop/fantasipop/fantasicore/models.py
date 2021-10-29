@@ -8,15 +8,6 @@ class Tipo_usuario(models.Model):
     def __str__(self):
         return self.nombre_tipo
 
-class Ticket(models.Model):
-    id_ticket = models.AutoField(primary_key=True)
-    fecha_comp = models.DateField(null=True)
-    numero_tick = models.IntegerField(null=True)
-    estado_tick = models.CharField(max_length=10, null=True)
-
-    def __str__(self):
-        return self.estado_tick
-
 class Usuario(models.Model):
     num_run = models.IntegerField(primary_key=True)
     dv_run = models.CharField(max_length=1,null=True)
@@ -33,6 +24,17 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.nombres_us
+
+class Ticket(models.Model):
+    id_ticket = models.AutoField(primary_key=True)
+    fecha_comp = models.DateField(null=True)
+    numero_tick = models.IntegerField(null=True)
+    estado_tick = models.CharField(max_length=10, null=True)
+
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.estado_tick        
 
 class Tipo_atraccion(models.Model):
     id_tipo_atr = models.IntegerField(primary_key=True)
