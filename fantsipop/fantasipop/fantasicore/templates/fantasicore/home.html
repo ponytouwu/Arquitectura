@@ -1,136 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fantasi PoP</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'fantasicore/css/estilos.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'fantasicore/css/estilos.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-    <script type="text/javascript"
-        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
-    <title>Patagón-Inicio sesion</title>
+
+
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!--Banner responsivo-->
+    <style>
+        body {
+
+            background-repeat: no-repeat;
+            background-color: rgba(209, 209, 171, 0.473);
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-xl colornav navbar-dark fixed-top bordernav letras">
-            <a class="navbar-brand" ><img style="width: 60px;"alt=""></a>
-            <form class="form-inline" method="POST">
-                {% csrf_token %}
-                <input class="form-control ml-sm-5 inputstyle letras" type="text"
-                    placeholder="Buscar en todos los productos" style="width: 241px;" required name="dato" id="dato">
-                <button class="btn btn-primary b1 letras" type="submit">Buscar</button>
-            </form>
-            <button style="background-color:#A0DBF5 ;" class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link ml-sm-2" >Categorias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link ml-sm-2" >Contactanos</a>
-                    </li>
-                </ul>
+    <nav class="navbar navbar-expand-md bg-danger navbar-dark navcolor">
+        <a class="navbar-brand">Fantasi Pop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'home'%}">Inicio</a>
+                </li>
+        
+                <li class="nav-item">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Quienes somos</a>
+                </li>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="demo" class="carousel slide" data-ride="carousel">
 
-                <ul class="navbar-nav espaciadonavbar">
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link" >Lista de
-                            Usuarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link" >Agregar
-                            Producto</a>
-                    </li>
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
 
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link" >Lista de
-                            Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link">Lista de
-                            Comentarios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link" >Cerrar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link" href=""></a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link ml-sm-2" >Registrarse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a style="color: white;" class="nav-link" >Iniciar Sesión</a>
-                    </li>
-                </ul>
+        </ul>
+
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item ">
+                <img src="{% static 'fantasicore/image/terra.jpg' %}" alt="1" class="img_tamano_banner">
             </div>
-        </nav>
-    </header>
-    <article>
-        <section>
-            <div class="ll">
-                <div class="container color">
-                    <div class="row">
-                        <div class="card-body col-md pp">
+            <div class="carousel-item active">
+                <img src="{% static 'fantasicore/image/JohnnyRocket.jpg' %}" alt="3" class="img_tamano_banner">
+            </div>
 
-                            <form  method="POST" name="formulario_inicio"
-                                id="formulario_inicio" class="bord">
-                                {% csrf_token %}
-                                <div id="in" class="text-center">Inicio sesion</div>
-                                <div class="form-group a">
-                                    <label for="correo">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="Ingrese Username">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Contraseña">Contraseña</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Contraseña">
-                                    <small id="emailHelp" class="form-text text-muted">Recuerda no compartir tu
-                                        contraseña</small>
-                                </div>
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Recordar cuenta</label>
-                                </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary bbbt">INICIAR</button>
-                                </div>
-                                <div class="text-center" style="margin-top: 20px;">
-                                    <a class="fab fa-google size_social text-info" aria-hidden="true"></a>
-                                </div>
-                                <br>
-                                <div class="text-center">
-                                    <span> No tienes cuenta? Registrate <a>aqui</a></span>
-                                </div>
-                                <div class="text-center">
-                                    <span> Olvidaste tu contraseña ? Haz Click <a>aqui</a></span>
-                                </div>
+        </div>
 
-                            </form>
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+    <div class="container-fluid">
+        <div class="row mt">
 
-                        </div>
-                    </div>
+            <div class="col-3 borde">
+                <div>
+                    <a></a>
+                    <a>estado: Encolado </a>
+                    <a>Juego: Raptor</a>
+                    <a>Tiempo espera: 3:21 </a>
+                    <a>Personas en cola: 32</a>
+               
+
+
                 </div>
+
+            </div>
+            <div class="col-6">
+                <div>
+                    <img class="mapa" src="{% static 'fantasicore/image/Mapa_atracciones_02.JPG' %}">
+                    
+                </div>
+                
+
+            </div>
+            <div class="col-3 borde">
+                <div>
+                    <a>Juego1</a>
+                    <a>Juego2</a>
+                    <a>Juego3</a>
+                    <a>Juego4</a>
+                    <a>Juego5</a>
+                    <a>Juego6</a>
+                    <a>Juego7</a>
+
+
+
+                </div>
+
             </div>
 
-        </section>
-    </article>
-    <footer class="site-info">
-        <div class="mapa">
-            <div id="map"></div>
         </div>
-        <div class="inside-site-info">
-            <span>Patagon - Todos los derechos Reservados [2021]</span>
-        </div>
-    </footer>
+    </div>
 </body>
 
 </html>
+
