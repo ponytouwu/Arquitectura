@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 {% load static %}
 
@@ -49,75 +49,29 @@
             </ul>
         </div>
     </nav>
-    <div id="demo" class="carousel slide" data-ride="carousel">
-
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-
-        </ul>
-
-        <!-- The slideshow -->
-        <div class="carousel-inner">
-            <div class="carousel-item ">
-                <img src="{% static 'fantasicore/image/terra.jpg' %}" alt="1" class="img_tamano_banner">
-            </div>
-            <div class="carousel-item active">
-                <img src="{% static 'fantasicore/image/JohnnyRocket.jpg' %}" alt="3" class="img_tamano_banner">
-            </div>
-
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
-    </div>
-    <div class="container-fluid">
-        <div class="row mt">
-
-            <div class="col-3 borde">
+    
+    
+    
+    
+    <div class="container-fluid"> 
+    <div class="row mt">
+    <div class="col-3 borde">
                 <div>
-                    <a></a>
-                    <a>estado: Encolado </a>
-                    <a>Juego: Raptor</a>
-                    <a>Tiempo espera: 3:21 </a>
-                    <a>Personas en cola: 32</a>
+                    <a>nombre del juego = {{juegoselec.nombre_atr}}</a>
+                    <a>Descripcion del juego = {{juegoselec.descrip_atr}} </a>
+                    <a>Duracion media = {{juegoselec.tiempo_medio}}</a>
+                    <a>Estatura minima = {{juegoselec.estatura_min}}</a>
+                    
                
 
 
                 </div>
 
             </div>
-            <div class="col-6">
-                <div>
-                    <img class="mapa" src="{% static 'fantasicore/image/Mapa_atracciones_02.JPG' %}">
-                    
-                </div>
-                
-
-            </div>
-            <div class="col-3 borde">
-                <div>
-                {% for p in juegos%}
-                    <a href="{% url 'juego' p.id_atr%}"> {{p.nombre_atr}} </a>
-                    
-                {% endfor %}
-                   
-                    
-
-
-
-                </div>
-
-            </div>
-
-        </div>
     </div>
+    </div>
+
+    
 </body>
 
 </html>

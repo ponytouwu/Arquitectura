@@ -18,7 +18,7 @@ class Usuario(models.Model):
     estatura_us = models.FloatField(null=True)
     edad = models.IntegerField(null=True)
     
-    user =  models.OneToOneField(User, on_delete=models.CASCADE, null = True)
+    user =  models.OneToOneField(User, on_delete=models.CASCADE, null = True )
     tipo_usuario = models.ForeignKey(Tipo_usuario,on_delete=models.CASCADE)
 
 
@@ -31,13 +31,13 @@ class Ticket(models.Model):
     numero_tick = models.IntegerField(null=True)
     estado_tick = models.CharField(max_length=10, null=True)
 
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, default="1")
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.estado_tick        
 
 class Tipo_atraccion(models.Model):
-    id_tipo_atr = models.IntegerField(primary_key=True)
+    id_tipo_atr = models.AutoField(primary_key=True)
     nomb_tip_at = models.CharField(max_length=30,null=True) 
 
     def __str__(self):
@@ -58,11 +58,12 @@ class Atraccion(models.Model):
         return self.nombre_atr        
 
 class Cola(models.Model):
-    id_cola = models.IntegerField(primary_key=True)
+    id_cola = models.AutoField(primary_key=True)
     cantidad_us = models.IntegerField(null=True)
     tiempo_max = models.IntegerField(null=True)  
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default="0")
-    atraccion = models.ForeignKey(Atraccion, on_delete=models.CASCADE , default="0")
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    atraccion = models.ForeignKey(Atraccion, on_delete=models.CASCADE)
+
 
    
 
