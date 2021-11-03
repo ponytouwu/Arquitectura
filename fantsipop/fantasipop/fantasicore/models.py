@@ -12,8 +12,8 @@ class Usuario(models.Model):
     num_run = models.IntegerField(primary_key=True)
     dv_run = models.CharField(max_length=1,null=True)
     nombres_us = models.CharField(max_length=50,null=True)
-    appellidos_us = models.CharField(max_length=50)
-    fono_us = models.CharField(max_length=12)
+    appellidos_us = models.CharField(max_length=50,null=True)
+    fono_us = models.CharField(max_length=12,null=True)
     email_us = models.CharField(max_length=30,null=True)
     estatura_us = models.FloatField(null=True)
     edad = models.IntegerField(null=True)
@@ -31,7 +31,7 @@ class Ticket(models.Model):
     numero_tick = models.IntegerField(null=True)
     estado_tick = models.CharField(max_length=10, null=True)
 
-    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, default="1")
 
     def __str__(self):
         return self.estado_tick        
@@ -43,14 +43,6 @@ class Tipo_atraccion(models.Model):
     def __str__(self):
         return self.nomb_tip_at
 
-class Cola(models.Model):
-    id_cola = models.IntegerField(primary_key=True)
-    cantidad_us = models.IntegerField(null=True)
-    tiempo_max = models.IntegerField(null=True)  
-
-    def __str__(self):
-        return self.cantidad_us 
-
 class Atraccion(models.Model):
     id_atr = models.AutoField(primary_key=True)
     nombre_atr = models.CharField(max_length=20,null=True)
@@ -60,7 +52,18 @@ class Atraccion(models.Model):
     estatura_min = models.FloatField(null=True)
 
     tipo_atraccion = models.ForeignKey(Tipo_atraccion, on_delete=models.CASCADE)
-    cola = models.ForeignKey(Cola, on_delete=models.CASCADE)
+    
 
     def __str__(self):
-        return self.nombre_atr
+        return self.nombre_atr        
+
+class Cola(models.Model):
+    id_cola = models.IntegerField(primary_key=True)
+    cantidad_us = models.IntegerField(null=True)
+    tiempo_max = models.IntegerField(null=True)  
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, default="0")
+    atraccion = models.ForeignKey(Atraccion, on_delete=models.CASCADE , default="0")
+
+   
+
+
