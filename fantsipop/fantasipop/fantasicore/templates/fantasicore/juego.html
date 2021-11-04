@@ -40,39 +40,73 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="" style="float: right;">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'logout' %}">Cerrar Sesion</a>
+                </li>
+                {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Atraccion</a>
+                </li>
+                {% endif %}
+                {% else %}
+
                 <li class="nav-item">
                     <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
                 </li>
+
+                {% endif %}
             </ul>
         </div>
     </nav>
-    
-    
-    
-    
-    <div class="container-fluid"> 
-    <div class="row mt">
-    <div class="col-3 borde">
+
+
+
+
+    <div class="container-fluid">
+        <div class="row mt">
+            <div class="col-3 borde">
                 <div>
                     <a>nombre del juego = {{juegoselec.nombre_atr}}</a>
                     <a>Descripcion del juego = {{juegoselec.descrip_atr}} </a>
                     <a>Duracion media = {{juegoselec.tiempo_medio}}</a>
                     <a>Estatura minima = {{juegoselec.estatura_min}}</a>
-                    
-               
+                    <form action="{% url 'encolar' %}" method="POST" name="formulario_inicio" id="formulario_inicio"
+                        class="bord">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="hidden" value="1" class="form-control" id="cantidad" name="cantidad" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" value="100" class="form-control" id="tiempo" name="tiempo" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" value="{{ juegoselec.id_atr }}" class="form-control" id="id_atrac" name="id_atrac" readonly>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" value="{{user.username}}" class="form-control" id="id_user" name="id_user" readonly>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary bbbt">ENCOLAR</button>
+                        </div>
+                    </form>
+
+
 
 
                 </div>
 
             </div>
-    </div>
+        </div>
     </div>
 
-    
+
 </body>
 
 </html>
-

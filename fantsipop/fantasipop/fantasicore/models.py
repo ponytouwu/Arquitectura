@@ -17,6 +17,7 @@ class Usuario(models.Model):
     email_us = models.CharField(max_length=30,null=True)
     estatura_us = models.FloatField(null=True)
     edad = models.IntegerField(null=True)
+    clave = models.CharField(max_length=30,null=True)
     
     user =  models.OneToOneField(User, on_delete=models.CASCADE, null = True )
     tipo_usuario = models.ForeignKey(Tipo_usuario,on_delete=models.CASCADE)

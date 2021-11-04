@@ -13,63 +13,64 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
+    <script type="text/javascript"
+        src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.10.0/localization/messages_es.js"></script>
     <link rel="icon" type="image/jpg" href="{% static 'ventas/img/icono.PNG' %}">
     <title>FantasiPop-Registro</title>
-    
+
     <script>
-           $(document).ready(function () {
+        $(document).ready(function () {
             $("#formulario_registro").validate({
                 rules: {
                     Rut: {
                         required: true,
-                        number:true,
+                        number: true,
                         min: 1,
-                        minlength:6
+                        minlength: 6
 
                     },
                     Nombre: {
                         required: true,
                         minlength: 2
-                        
+
                     },
                     Apellido_P: {
                         required: true,
                         minlength: 2
-                        
+
                     },
                     Numero: {
                         required: true,
                         minlength: 8
-                        
+
                     },
                     correo: {
                         required: true,
                         minlength: 1,
                         email: true
-                      
+
                     },
-                    dv:{
-                        required:true,
-                        minlength:1,
-                        maxlength:1,
-                        number:false
-                      
+                    dv: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 1,
+                        number: false
+
                     },
-                    exampleCheck1:{
-                        required:true
-                    }           
+                    exampleCheck1: {
+                        required: true
+                    }
                 },
-                messages:{
-                   
-                    exampleCheck1:{
-                        required:"Debes aceptar los terminos y condiciones para ingresar"
-                    }                          
-                }             
+                messages: {
+
+                    exampleCheck1: {
+                        required: "Debes aceptar los terminos y condiciones para ingresar"
+                    }
+                }
             });
         });
-        </script>
-        <style>
+    </script>
+    <style>
         body {
 
             background-repeat: no-repeat;
@@ -77,6 +78,7 @@
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-xl bg-danger navbar-dark navcolor fixed-top">
@@ -86,12 +88,18 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
+                    {% if user.authenticated == false %}
                     <li class="nav-item">
                         <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Inicio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item" style="float: right ;">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -111,10 +119,10 @@
                                 {% endfor%}
                             </div>
                             {% endif %}
-                            <form action="{% url 'registro' %}" method="POST" name="formulario_registro"
+                            <form action="{% url 'registrar' %}" method="POST" name="formulario_registro"
                                 id="formulario_registro" class="bord">
                                 {% csrf_token %}
-                                
+
                                 <div id="in" class="text-center">Registrarse</div>
                                 <div class="form-group a">
                                     <label for="Nombre">Nombres</label>
@@ -122,8 +130,8 @@
                                         placeholder="Ponga sus nombres">
                                 </div>
                                 <div class="form-group">
-                                    <label for="Apellido_P">Apellidos</label>
-                                    <input type="text" class="form-control" id="Apellido_P" name="Apellido_P"
+                                    <label for="Apellidos">Apellidos</label>
+                                    <input type="text" class="form-control" id="Apellidos" name="Apellidos"
                                         placeholder="Ponga sus Apellidos">
                                 </div>
                                 <label for="Rut">Rut</label>
@@ -131,6 +139,16 @@
                                     <input type="number" class="form-control col-md-12" name="Rut" id="Rut"
                                         placeholder="Sin puntos ni guion">
                                     <input type="text" class="form-control col-md-1" name="dv" id="dv" placeholder="DV">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pass">Contraseña</label>
+                                    <input type="password" class="form-control" id="pass"
+                                        placeholder="Ponga su Contraseña" name="pass">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pass">Confirmar Contraseña</label>
+                                    <input type="password" class="form-control" id="pass2"
+                                        placeholder="Repita su contraseña" name="pass2">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Correo Electronico</label>
@@ -143,8 +161,23 @@
                                     <input type="tel" class="form-control" id="Numero" placeholder="Ponga su Numero"
                                         name="Numero">
                                 </div>
+                                <div class="form-group">
+                                    <label for="Edad">Edad</label>
+                                    <input type="number" class="form-control" id="Edad" placeholder="Ponga su Edad"
+                                        name="Edad">
+                                </div>
+                                <div class="form-group">
+                                    <label for="est">Estatura</label>
+                                    <input type="number" class="form-control" id="est" placeholder="Ponga su Estatura"
+                                        name="est">
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" value="1" class="form-control" id="tipu" name="tipu" readonly>
+                                </div>
+
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="exampleCheck1">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                                        name="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Aceptar Terminos y
                                         Condiciones</label>
                                 </div>

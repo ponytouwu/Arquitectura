@@ -40,12 +40,28 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="" style="float: right;">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'logout' %}">Cerrar Sesion</a>
+                </li>
+                {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Atraccion</a>
+                </li>
+                {% endif %}
+                {% else %}
+
                 <li class="nav-item">
                     <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
                 </li>
+
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -81,34 +97,46 @@
         <div class="row mt">
 
             <div class="col-3 borde">
+        
+                {% for c in cola1 %}
+                {% if c.usuario.num_run == user.id %}
+                {{c.usuario.num_run}}
+                {% endif %}
+                {% endfor %}
+               
+                
                 <div>
                     <a></a>
                     <a>estado: Encolado </a>
-                    <a>Juego: Raptor</a>
-                    <a>Tiempo espera: 3:21 </a>
-                    <a>Personas en cola: 32</a>
-               
-
-
+                    <a>Juego: {{a.nombre_atr}}</a>
+                    <a>Tiempo espera: {{a.tiempo_medio}} </a>
+                    <a>Personas en cola: {{a.capacidadd_atr}}</a>
                 </div>
-
+                
+            
             </div>
             <div class="col-6">
                 <div>
                     <img class="mapa" src="{% static 'fantasicore/image/Mapa_atracciones_02.JPG' %}">
-                    
+
                 </div>
-                
+
 
             </div>
             <div class="col-3 borde">
                 <div>
-                {% for p in juegos%}
+                    {% if user.is_authenticated %}
+                    {% for p in juegos %}
                     <a href="{% url 'juego' p.id_atr%}"> {{p.nombre_atr}} </a>
-                    
-                {% endfor %}
-                   
-                    
+
+                    {% endfor %}
+                    {% else %}
+                    {% for p in juegos %}
+                    <label for="">{{p.nombre_atr}}</label>
+                    {% endfor %}
+                    {% endif %}
+
+
 
 
 
@@ -121,4 +149,3 @@
 </body>
 
 </html>
-
