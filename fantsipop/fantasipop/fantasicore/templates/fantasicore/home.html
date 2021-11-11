@@ -30,41 +30,72 @@
             background-color: rgba(209, 209, 171, 0.473);
         }
     </style>
+    <script type="text/javascript">
+
+        function carga() {
+            contador_s = 0;
+            contador_m = 0;
+            s = document.getElementById("segundos");
+            m = document.getElementById("minutos");
+
+            window.setInterval(
+                function () {
+                    if (contador_s == 60)
+                    {
+                        contador_s = 0;
+                        contador_m++;
+                        m.innerHTML = contador_m;
+                        if (contador_m == 0) {
+                            contador_m = 0;
+                        }
+                    }
+                    s.innerHTML = contador_s;
+                    contador_s++;
+                }
+                , 1000);
+
+        }
+
+
+
+    </script>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-xl bg-danger navbar-dark navcolor fixed-top">
-        <a class="navbar-brand" href="{% url 'home' %}">Fantasi Pop</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                {% if user.is_authenticated %}
-                <li class="" style="float: right;">
-                    <a class="nav-link colorletranav cambiocolor" href="{% url 'logout' %}">Cerrar Sesion</a>
-                </li>
-                {% if user.is_staff %}
-                <li class="nav-item">
-                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Usuarios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Atraccion</a>
-                </li>
-                {% endif %}
-                {% else %}
+    <header>
+        <nav class="navbar navbar-expand-xl bg-danger navbar-dark navcolor fixed-top">
+            <a class="navbar-brand" href="{% url 'home' %}">Fantasi Pop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="" style="float: right;">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'logout' %}">Cerrar Sesion</a>
+                    </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'escanear'%}">Escanear</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Atraccion</a>
+                    </li>
+                    {% endif %}
+                    {% else %}
 
-                <li class="nav-item">
-                    <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
+                    </li>
 
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
     <div id="demo" class="carousel slide" data-ride="carousel">
 
         <!-- Indicators -->
@@ -93,27 +124,62 @@
             <span class="carousel-control-next-icon"></span>
         </a>
     </div>
+    {% if messages %}
+
+    <div class="alert alert-success">
+        {% for x in messages %}
+        <strong>{{ x }}</strong>
+        {% endfor%}
+    </div>
+    {% endif %}
     <div class="container-fluid">
         <div class="row mt">
 
             <div class="col-3 borde">
-        
+
+
+                {% for x in usuarios%}
+
+
+                {% if x.user.username == user.username %}
                 {% for c in cola1 %}
-                {% if c.usuario.num_run == user.id %}
-                {{c.usuario.num_run}}
-                {% endif %}
-                {% endfor %}
-               
-                
+
+
+
+                {% if c.usuario.num_run == x.num_run %}
                 <div>
                     <a></a>
-                    <a>estado: Encolado </a>
-                    <a>Juego: {{a.nombre_atr}}</a>
-                    <a>Tiempo espera: {{a.tiempo_medio}} </a>
-                    <a>Personas en cola: {{a.capacidadd_atr}}</a>
+                    <a>Estado: Encolado </a>
+                    <a>Juego: {{c.atraccion.nombre_atr}}</a>
+                    <a>Tiempo espera: <span id="minutos"></span>: <span id="segundos"></span> </a>
+                    <a>Personas en cola: {{c.atraccion.capacidadd_atr}}</a>
+
+
+
+                    <a href="{% url 'eliminar_cola' c.id_cola %}"><button class="btn btn-danger">Desencolar</button></a>
+
+
+
                 </div>
-                
-            
+
+
+
+
+                {% endif %}
+
+                {% endfor %}
+
+                {%endif%}
+                {% endfor %}
+
+
+
+
+
+
+
+
+
             </div>
             <div class="col-6">
                 <div>
@@ -127,13 +193,15 @@
                 <div>
                     {% if user.is_authenticated %}
                     {% for p in juegos %}
+
                     <a href="{% url 'juego' p.id_atr%}"> {{p.nombre_atr}} </a>
 
                     {% endfor %}
                     {% else %}
                     {% for p in juegos %}
-                    <label for="">{{p.nombre_atr}}</label>
+                    <h2>{{p.nombre_atr}}</h2>
                     {% endfor %}
+
                     {% endif %}
 
 

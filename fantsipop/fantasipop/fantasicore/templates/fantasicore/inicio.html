@@ -58,7 +58,7 @@
                     </li>
                     {% if user.is_staff %}
                     <li class="nav-item">
-                        <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Usuarios</a>
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'escanear'%}">Escanear</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Atraccion</a>
@@ -84,6 +84,14 @@
                 <div class="container color">
                     <div class="row">
                         <div class="card-body col-md pp">
+                            {% if messages %}
+
+                            <div class="alert alert-danger">
+                                {% for x in messages %}
+                                <strong>{{ x }}</strong>
+                                {% endfor%}
+                            </div>
+                            {% endif %}
                             <form action="{% url 'sesion' %}" method="POST" name="formulario_inicio"
                                 id="formulario_inicio" class="bord">
                                 {% csrf_token %}

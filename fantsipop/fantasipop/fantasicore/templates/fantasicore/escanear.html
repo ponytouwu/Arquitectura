@@ -1,0 +1,125 @@
+!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasi PoP</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'fantasicore/css/estilos.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <style>
+        /* Make the image fully responsive */
+        .carousel-inner img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <!--Banner responsivo-->
+    <style>
+        body {
+
+            background-repeat: no-repeat;
+            background-color: rgba(209, 209, 171, 0.473);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-xl bg-danger navbar-dark navcolor fixed-top">
+            <a class="navbar-brand" href="{% url 'home' %}">Fantasi Pop</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="" style="float: right;">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'logout' %}">Cerrar Sesion</a>
+                    </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'escanear'%}">Escanear</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Administrar Atraccion</a>
+                    </li>
+                    {% endif %}
+                    {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'inicio'%}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link colorletranav cambiocolor" href="{% url 'registro'%}">Registro</a>
+                    </li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+
+    
+    <div class="container-fluid ">
+
+        <div class="row mt">
+
+            <div class="col-3 borde">
+                <div>
+                    {% if cola2 %}
+                    <a>Estado: Encolado </a>
+                    <a>Juego: {{cola2.atraccion.nombre_atr}}</a>
+                    <a>Tiempo espera: {{cola2.atraccion.tiempo_medio}} </a>
+                    <a>Personas en cola: {{cola2.atraccion.capacidadd_atr}}</a>
+                    <a href="{% url 'eliminar_cola1' cola2.id_cola %}"><button
+                            class="btn btn-danger">Ingresar jugador</button></a>
+                    {% else %}
+                    {% if messages %}
+
+                    <div class="alert alert-danger">
+                        {% for x in messages %}
+                        <h6>{{ x }}</h6>
+                        {% endfor%}
+                    </div>
+                    {% endif %}
+                    <h3>Escanear codigo de ingreso de los jugadores.</h3>
+                    <form action="{% url 'buscar_elemento' %}" method="POST">
+                        {% csrf_token %}
+                        <div id="buscar">
+                            <input class="form-control inputstyle dps" type="text"
+                                placeholder="Buscar producto por nombre" style="width: 241px;" name="buscar_rut"
+                                id="buscar_rut">
+                            <button class="btn btn-primary b1" type="submit">Escanear codigo</button>
+                        </div>
+
+                    </form>
+
+                    {% endif %}
+
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

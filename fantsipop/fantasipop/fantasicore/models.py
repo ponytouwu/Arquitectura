@@ -65,7 +65,6 @@ class Cola(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     atraccion = models.ForeignKey(Atraccion, on_delete=models.CASCADE)
 
-
    
 
 

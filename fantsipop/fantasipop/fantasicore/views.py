@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from .models import Atraccion, Usuario, Tipo_usuario, User, Cola
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+import time
+import os
 
 # Create your views here.
 
@@ -18,6 +20,13 @@ def home (request):
 
 def inicio (request):
     return render(request, 'fantasicore/inicio.html')
+
+def escanear (request):
+    cola1 = Cola.objects.all()
+    contexto={
+        'cola1' : cola1
+    }
+    return render(request, 'fantasicore/escanear.html',contexto)
     
 def registro (request):
     usuario = Usuario.objects.all()
@@ -63,7 +72,7 @@ def registrar (request):
         user1.is_staff = 0
         user1.save() 
         if pass_u == pass_u2:
-            Usuario.objects.create(num_run= rut_u,dv_run= dv_u,nombres_us=nombre_u,appellidos_us=apellidos_u,fono_us=Numero_u,email_us=correo_u,estatura_us=est_u,edad=edad_u, clave=pass_u, tipo_usuario=tip_o)
+            Usuario.objects.create(num_run= rut_u,dv_run= dv_u,nombres_us=nombre_u,appellidos_us=apellidos_u,fono_us=Numero_u,email_us=correo_u,estatura_us=est_u,edad=edad_u, clave=pass_u, tipo_usuario=tip_o, user=user1)
             messages.success(request,'Usuario registrado')
         
             return redirect('home')
@@ -112,3 +121,41 @@ def logout_view(request):
     logout(request)
 
     return redirect('inicio') 
+
+
+def eliminar_cola(request,id):
+    cola = Cola.objects.get(id_cola = id)
+    cola.delete()
+    messages.success(request,'Te has desencolado correctamente')
+    return redirect('home')
+
+def eliminar_cola1(request,id):
+    cola = Cola.objects.get(id_cola = id)
+    cola.delete()
+    messages.success(request,'Se a escaneado correctamente el codigo QR.')
+    return redirect('escanear') 
+
+def tiempo(request):
+    for cantidad_horas in range(24):
+        for cantidad_minutos in range(60):
+            for cantidad_segundos in range(60):
+                os.system('cls')
+                print(f'{cantidad_horas}:{cantidad_minutos}:{cantidad_segundos}')
+
+def buscar_elemento(request):
+
+    x = request.POST['buscar_rut']
+    u = Usuario.objects.get(num_run = x)
+    
+    
+    try:
+        cola2 = Cola.objects.get(usuario = x)
+        contexto = {
+        "cola2" : cola2
+        }
+        return render(request,'fantasicore/escanear.html',contexto)
+    except Cola.DoesNotExist:
+        messages.error(request,'Codigo QR no disponible.')
+        return render(request,'fantasicore/escanear.html')
+   
+         
